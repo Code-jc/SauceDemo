@@ -10,6 +10,11 @@ class ProductsPage {
 
       //Products page elements
       this.productsTitle = Selector('.product_label');
+      this.ShoppingCartIcon = Selector('#shopping_cart_container');
+   }
+
+   async navigateToShoppingCart() {
+      await t.click(this.ShoppingCartIcon);
    }
 }
 
