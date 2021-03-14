@@ -1,0 +1,22 @@
+{
+   "name": "saucedemo",
+   "version": "1.0.0",
+   "type": "module",
+   "description": "SauceDemo - first challenge ",
+   "scripts": {
+      "test-all-chrome": "testcafe chrome ./sauce_demo/tests"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Code-jc/SauceDemo.git"
+   },
+   "author": "Carlos Guerra",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/Code-jc/SauceDemo/issues"
+   },
+   "homepage": "https://github.com/Code-jc/SauceDemo#readme",
+   "dependencies": {
+      "dotenv": "^8.2.0"
+   }
+}
