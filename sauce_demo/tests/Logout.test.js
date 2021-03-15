@@ -14,6 +14,5 @@ test('Logout, user navigates to the Login page.', async t => {
    await t
       .click(ProductsPage.menuIcon)
       .click(ProductsPage.logout)
-      .expect(LoginPage.loginButton.exists)
-      .ok();
+      .expect(LoginPage.loginButton.exists).ok();
 });

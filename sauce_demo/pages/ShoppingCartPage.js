@@ -8,7 +8,14 @@ class ShoppingCartPage {
       this.descriptionLabel = Selector('.cart_desc_label');
       this.continueShoppingButton = Selector('.btn_secondary');
       this.checkoutButton = Selector('.btn_action.checkout_button');
+
+      //Cart Items
+      this.cartItems = Selector('.cart_item');
    }
+
+   
+
+
 }
 
 export default new ShoppingCartPage();
