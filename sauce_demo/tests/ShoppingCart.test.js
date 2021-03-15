@@ -13,10 +13,9 @@ test('User is able to navigate to the Shopping Cart page', async t => {
    await t.expect(ProductsPage.ShoppingCartIcon.exists).ok();
    await t.click(ProductsPage.ShoppingCartIcon);
    await t
-      .expect(ShoppingCartPage.headerTitle.exists)
-      .ok()
-      .expect(ShoppingCartPage.continueShoppingButton.exists)
-      .ok()
-      .expect(ShoppingCartPage.checkoutButton.exists)
-      .ok();
+      .expect(ShoppingCartPage.headerTitle.exists).ok()
+      .expect(ShoppingCartPage.quantityLabel).ok()
+      .expect(ShoppingCartPage.descriptionLabel).ok()
+      .expect(ShoppingCartPage.continueShoppingButton.exists).ok()
+      .expect(ShoppingCartPage.checkoutButton.exists).ok();
 });
