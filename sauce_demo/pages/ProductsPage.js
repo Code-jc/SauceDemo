@@ -10,7 +10,8 @@ class ProductsPage {
 
       //Products page elements
       this.productsTitle = Selector('.product_label');
-      this.ShoppingCartIcon = Selector('#shopping_cart_container');
+      this.ShoppingCartIcon = Selector('.shopping_cart_link.fa-layers.fa-fw');
+                        
 
       this.productList = Selector('.inventory_item'); //Item List
       this.addToCartButtons = Selector('button').withText('ADD TO CART'); //Add To Cart button list

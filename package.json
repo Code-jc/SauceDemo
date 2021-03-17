@@ -4,7 +4,8 @@
    "type": "module",
    "description": "SauceDemo - first challenge ",
    "scripts": {
-      "test-all-chrome": "testcafe chrome ./sauce_demo/tests"
+      "test-all-chrome": "testcafe chrome ./sauce_demo/tests",
+      "test-shopping-cart": "testcafe chrome ./sauce_demo/tests/ShoppingCart.test.js"
    },
    "repository": {
       "type": "git",
