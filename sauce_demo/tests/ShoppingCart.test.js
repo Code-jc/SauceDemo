@@ -45,25 +45,28 @@ test('User adds a Single Item to the cart.', async t => {
    await t.expect(cartItemsCount).eql(1); //Single element should be added to the cart
 });
 
-// test('User adds Multiple Items to the cart.', async t => {
-//    await LoginPage.submitLoginForm(
-//       CREDENTIALS.VALID_USER.USERNAME,
-//       CREDENTIALS.VALID_USER.PASSWORD
-//    );
-//    await t.expect(ProductsPage.ShoppingCartIcon.exists).ok();
 
-//    const itemsCountProducts = await ProductsPage.addToCartButtons.count;
+test('User adds Multiple Items to the cart.', async t => {
+   await LoginPage.submitLoginForm(
+      CREDENTIALS.VALID_USER.USERNAME,
+      CREDENTIALS.VALID_USER.PASSWORD
+   );
+   
+   await t.expect(ProductsPage.ShoppingCartIcon.exists).ok();
 
-//     // Add all items of the Products Page into the Cart 
-//    for (var index = 0; index <= itemsCountProducts - 1; index++) {
-//       await t.click(ProductsPage.addToCartButtons.nth(index));
-//    }
+   //Get the count of all items displayed on the page
+   let totalItemsCount = await ProductsPage.addToCartButtons.count;
 
-//    //Validate Products are correctly added to Shopping cart
-//    await ProductsPage.navigateToShoppingCart();
-//    const cartItemsCount = await ShoppingCartPage.cartItems.count;
-//    await t.expect(cartItemsCount).eql(itemsCountProducts); //All items should be added to the cart
-// });
+    // Add all items of the Products Page into the Cart 
+   for (let i = 1; i <= totalItemsCount; i++) {   
+      await t.click(ProductsPage.addToCartButtons.nth(0));     
+   }
+
+   //Validate Products are correctly added to Shopping cart
+   await ProductsPage.navigateToShoppingCart();
+   const cartItemsCount = await ShoppingCartPage.cartItems.count;
+   await t.expect(cartItemsCount).eql(totalItemsCount); //All items should be added to the cart
+});
 
 test('Error message displayed when user information is missing.', async t => {
    await LoginPage.submitLoginForm(
@@ -113,7 +116,7 @@ test('Error message displayed when user information is missing.', async t => {
 
 
 
-test("Fill user's information and navigates to the Overview Page", async t => {
+test("Fill user's information and navigates to the Overview Page.", async t => {
    await LoginPage.submitLoginForm(
       CREDENTIALS.VALID_USER.USERNAME,
       CREDENTIALS.VALID_USER.PASSWORD
@@ -144,7 +147,7 @@ test("Fill user's information and navigates to the Overview Page", async t => {
 });   
 
 //Finalize order
-test('User is able to finalize the order', async t => {
+test('User is able to finalize the order.', async t => {
    await LoginPage.submitLoginForm(
       CREDENTIALS.VALID_USER.USERNAME,
       CREDENTIALS.VALID_USER.PASSWORD

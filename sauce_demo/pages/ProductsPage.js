@@ -14,7 +14,8 @@ class ProductsPage {
                         
 
       this.productList = Selector('.inventory_item'); //Item List
-      this.addToCartButtons = Selector('button').withText('ADD TO CART'); //Add To Cart button list
+      //this.addToCartButtons = Selector('button').withText('ADD TO CART'); //Add To Cart button list
+      this.addToCartButtons = Selector('.btn_primary.btn_inventory');
    }
 
    async navigateToShoppingCart() {
