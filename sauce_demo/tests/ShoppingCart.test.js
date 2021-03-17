@@ -3,6 +3,7 @@ import ProductsPage from '../pages/ProductsPage';
 import ShoppingCartPage from '../pages/ShoppingCartPage';
 import CheckoutInformationPage from '../pages/CheckoutInfoPage';
 import CheckoutOverviewPage from '../pages/CheckoutOverviewPage';
+import FinishPage from '../pages/FinishPage';
 import { CREDENTIALS } from '../data/Constants';
 
 fixture('Shopping Cart fixture testing').page`https://www.saucedemo.com/`;
@@ -142,8 +143,74 @@ test("Fill user's information and navigates to the Overview Page", async t => {
 
 });   
 
-
-
-
 //Finalize order
+test('User is able to finalize the order', async t => {
+   await LoginPage.submitLoginForm(
+      CREDENTIALS.VALID_USER.USERNAME,
+      CREDENTIALS.VALID_USER.PASSWORD
+   );
+   await t.expect(ProductsPage.ShoppingCartIcon.exists).ok();
+   // Add 3 items from the Products Page into the Cart
+   for (var index = 0; index <= 2; index++) {
+      await t.click(ProductsPage.addToCartButtons.nth(index));
+   }
+
+   //Validate Products are correctly added to Shopping cart
+   await ProductsPage.navigateToShoppingCart();
+   const cartItemsCount = await ShoppingCartPage.cartItems.count;
+   await t.expect(cartItemsCount).eql(3); //3 items should be added to the cart
+
+   //Checkout Products
+   ShoppingCartPage.checkOut();
+   await t.expect(CheckoutInformationPage.headerTitle.exists).ok();
+
+   //Fill out the User information
+   CheckoutInformationPage.fillOutUserInformation('Carlos', 'Guerra', '45110') //first name is empty
+   CheckoutInformationPage.continueWithOrder();
+   
+   //Validate Overview page elements
+    CheckoutOverviewPage.validateOverviewPage();
+
+
+});   
+
+
+test('User completes a purchase and navigates to the Confirmation page.', async t => {
+   await LoginPage.submitLoginForm(
+      CREDENTIALS.VALID_USER.USERNAME,
+      CREDENTIALS.VALID_USER.PASSWORD
+   );
+   await t.expect(ProductsPage.ShoppingCartIcon.exists).ok();
+   // Add 3 items from the Products Page into the Cart
+   for (var index = 0; index <= 2; index++) {
+      await t.click(ProductsPage.addToCartButtons.nth(index));
+   }
+
+   //Validate Products are correctly added to Shopping cart
+   await ProductsPage.navigateToShoppingCart();
+   const cartItemsCount = await ShoppingCartPage.cartItems.count;
+   await t.expect(cartItemsCount).eql(3); //3 items should be added to the cart
+
+   //Checkout Products
+   ShoppingCartPage.checkOut();
+   await t.expect(CheckoutInformationPage.headerTitle.exists).ok();
+
+   //Fill out the User information
+   CheckoutInformationPage.fillOutUserInformation('Carlos', 'Guerra', '45110') //first name is empty
+   CheckoutInformationPage.continueWithOrder();
+   
+   //Validate Overview page elements
+   CheckoutOverviewPage.validateOverviewPage();
+
+   //Validate Finish page
+   FinishPage.validateFinishPage();
+   
+
+
+});   
+
+
+
+
+
 //Complete a Purchase
