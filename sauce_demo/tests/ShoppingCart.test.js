@@ -114,8 +114,6 @@ test('Error message displayed when user information is missing.', async t => {
    
 });
 
-
-
 test("Fill user's information and navigates to the Overview Page.", async t => {
    await LoginPage.submitLoginForm(
       CREDENTIALS.VALID_USER.USERNAME,
@@ -146,6 +144,8 @@ test("Fill user's information and navigates to the Overview Page.", async t => {
 
 });   
 
+//To Do
+
 //Finalize order
 test('User is able to finalize the order.', async t => {
    await LoginPage.submitLoginForm(
@@ -153,15 +153,46 @@ test('User is able to finalize the order.', async t => {
       CREDENTIALS.VALID_USER.PASSWORD
    );
    await t.expect(ProductsPage.ShoppingCartIcon.exists).ok();
-   // Add 3 items from the Products Page into the Cart
-   for (var index = 0; index <= 2; index++) {
-      await t.click(ProductsPage.addToCartButtons.nth(index));
-   }
+   
+   //All items will be added
+   let totalItemsCount = await ProductsPage.addToCartButtons.count;
 
-   //Validate Products are correctly added to Shopping cart
+   let itemNameProductPage = new Array(totalItemsCount);
+   let itemDescriptionProductPage =  new Array(totalItemsCount);
+   let totalItemPriceProductPage = new Array(totalItemsCount);
+   
+   //Get element information and add it to the cart
+   for (let i = 0; i <= totalItemsCount -1; i++) { 
+            itemNameProductPage[i] = await ProductsPage.itemName.nth(i).innerText;
+            itemDescriptionProductPage[i] = await ProductsPage.itemDescription.nth(i).innerText;
+            totalItemPriceProductPage[i] = await ProductsPage.itemPrice.nth(i).innerText;
+
+      await t.click(ProductsPage.addToCartButtons.nth(0));     
+   }
+   
+   //Validate items on the overview page match with the added items
    await ProductsPage.navigateToShoppingCart();
    const cartItemsCount = await ShoppingCartPage.cartItems.count;
-   await t.expect(cartItemsCount).eql(3); //3 items should be added to the cart
+   await t.expect(cartItemsCount).eql(totalItemsCount); 
+
+   let itemNameShoppingCart = new Array(cartItemsCount);
+   let itemDescriptionShoppingCart =  new Array(cartItemsCount);
+   let totalItemPriceShoppingCart = new Array(cartItemsCount);
+   let totalPrice;
+
+    for (let i = 0; i <= cartItemsCount -1; i++) { 
+         //Get the text of the item on the ShoppingCart
+            itemNameShoppingCart[i] = await ProductsPage.itemName.nth(i).innerText;
+            itemDescriptionShoppingCart[i] = await ProductsPage.itemDescription.nth(i).innerText;
+            totalPrice = await ProductsPage.itemPrice.nth(i).innerText;
+            totalItemPriceShoppingCart[i] = '$' + totalPrice;
+
+         //Compare the item selected on Product Page versus the item added into the Shopping Cart
+            await t.expect(itemNameProductPage[i]).eql(itemNameShoppingCart[i]); 
+            await t.expect(itemDescriptionProductPage[i]).eql(itemDescriptionShoppingCart[i]);
+            await t.expect(totalItemPriceProductPage[i]).eql(totalItemPriceShoppingCart[i]); 
+   }
+   
 
    //Checkout Products
    ShoppingCartPage.checkOut();
@@ -173,8 +204,6 @@ test('User is able to finalize the order.', async t => {
    
    //Validate Overview page elements
     CheckoutOverviewPage.validateOverviewPage();
-
-
 });   
 
 
@@ -211,9 +240,3 @@ test('User completes a purchase and navigates to the Confirmation page.', async 
 
 
 });   
-
-
-
-
-
-//Complete a Purchase

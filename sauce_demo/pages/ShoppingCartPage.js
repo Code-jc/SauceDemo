@@ -11,6 +11,10 @@ class ShoppingCartPage {
 
       //Cart Items
       this.cartItems = Selector('.cart_item');
+      this.itemName = Selector('.inventory_item_name');
+      this.itemDescription = Selector('.inventory_item_desc');
+      this.itemPrice = Selector('.inventory_item_price');
+
    }
     
     async continueShopping (){

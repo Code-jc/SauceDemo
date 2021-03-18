@@ -14,13 +14,19 @@ class ProductsPage {
                         
 
       this.productList = Selector('.inventory_item'); //Item List
-      //this.addToCartButtons = Selector('button').withText('ADD TO CART'); //Add To Cart button list
       this.addToCartButtons = Selector('.btn_primary.btn_inventory');
+
+      //Product Details
+      this.itemName = Selector('.inventory_item_name');
+      this.itemDescription = Selector('.inventory_item_desc');
+      this.itemPrice = Selector('.inventory_item_price');
+
    }
 
    async navigateToShoppingCart() {
       await t.click(this.ShoppingCartIcon);
    }
+
 }
 
 export default new ProductsPage();
