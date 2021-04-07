@@ -1,2 +1,2 @@
 # SauceDemo
-SauceDemo  First challenge exercise Wizeline cert.
+SauceDemo  First challenge
